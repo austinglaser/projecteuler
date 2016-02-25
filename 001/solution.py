@@ -2,7 +2,7 @@
 """Project Euler problem 1 solution
 
 Usage:
-    p1.py <limit>
+    solution.py <limit>
 
 Finds the sum of multiples of 3 and 5 up to <limit>
 """

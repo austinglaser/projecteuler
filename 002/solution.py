@@ -2,7 +2,7 @@
 """
 
 Usage:
-    p2.py <limit>
+    solution.py <limit>
 
 Sum even fibonacci numbers less than <limit>
 """

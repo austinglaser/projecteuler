@@ -2,7 +2,7 @@
 """
 
 Usage:
-    p3.py <value>
+    solution.py <value>
 
 Find the largest prime factor of <value>.
 """
