@@ -26,11 +26,11 @@ def is_n_decimal_digits(value, n):
 def palindromes_between(min_value, max_value):
     max_digits = n_decimal_digits(max_value)
     palindromes_with_digits = [None]*max_digits
-    palindromes_with_digits[0] = np.arange(0,10, 1,  dtype='i4')
-    palindromes_with_digits[1] = np.arange(0,100,11, dtype='i4')
+    palindromes_with_digits[0] = np.arange(0,10, 1,  dtype='i8')
+    palindromes_with_digits[1] = np.arange(0,100,11, dtype='i8')
     for digits in range(3, max_digits + 1):
         seed_row = palindromes_with_digits[(digits - 2) - 1]
-        palindromes_with_digits[digits - 1] = np.zeros(len(seed_row)*10, dtype='i4')
+        palindromes_with_digits[digits - 1] = np.zeros(len(seed_row)*10, dtype='i8')
         current_row = palindromes_with_digits[digits - 1]
         i = 0
         for seed in seed_row:
