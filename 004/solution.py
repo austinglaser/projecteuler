@@ -40,7 +40,8 @@ def palindromes_less_than(max_value):
                 current_row[i] = value
                 i += 1
     palindromes = np.concatenate(palindromes_with_digits)
-    palindromes = np.sort(palindromes[palindromes <= max_value])
+    palindromes = np.unique(palindromes[palindromes <= max_value])
+    palindromes = palindromes[1:]
     return palindromes
 
 
