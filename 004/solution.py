@@ -26,8 +26,8 @@ def is_n_decimal_digits(value, n):
 def palindromes_less_than(max_value):
     max_digits = n_decimal_digits(max_value)
     palindromes_with_digits = [None]*max_digits
-    palindromes_with_digits[0] = np.arange(1,10)
-    palindromes_with_digits[1] = np.arange(11,100,11)
+    palindromes_with_digits[0] = np.arange(0,10, 1,  dtype='i4')
+    palindromes_with_digits[1] = np.arange(0,100,11, dtype='i4')
     for digits in range(3, max_digits + 1):
         seed_row = palindromes_with_digits[(digits - 2) - 1]
         palindromes_with_digits[digits - 1] = np.zeros(len(seed_row)*9, dtype='i4')
