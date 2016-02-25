@@ -50,6 +50,8 @@ if __name__ == "__main__":
         digits = int(args['<digits>'])
     except:
         raise docopt.DocoptExit("'digits' must be a positive integer")
+    if digits < 1:
+        raise docopt.DocoptExit("'digits' must be a positive integer")
 
     largest_number = 10**(digits) - 1
     largest_product = largest_number ** 2
