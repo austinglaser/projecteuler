@@ -12,7 +12,6 @@ Project Euler problem 11
 Max adjacent product in grid
 """
 
-import math
 import numpy as np
 
 
@@ -50,10 +49,12 @@ if __name__ == "__main__":
         s = grid[:,c:c+4]
         for q in s:
             quartets.append(q)
-    for offset in range(-19, 20):
-        diag = np.diagonal(grid, offset)
-        for i in range(len(diag) - 3):
-            quartets.append(diag[i:i+4])
+    for offset in range(-(grid.shape[0] - 1), grid.shape[1]):
+        diagr = np.diagonal(grid, offset)
+        diagl = np.diagonal(np.flipud(grid), offset)
+        for i in range(len(diagr) - 3):
+            quartets.append(diagr[i:i+4])
+            quartets.append(diagl[i:i+4])
     quartets = np.array(quartets)
     products = np.product(quartets, axis=1)
     maxindex = products.argmax()
