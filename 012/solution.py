@@ -34,9 +34,7 @@ def n_divisors(n):
 if __name__ == "__main__":
     t = 0
     n = 1
-    d = 0
-    while d < 500:
+    while n_divisors(t) < 500:
         t += n
         n += 1
-        d = n_divisors(t)
     print t
