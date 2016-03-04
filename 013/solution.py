@@ -7,7 +7,7 @@
 # Distributed under terms of the MIT license.
 
 """
-Project Euler problem 12
+Project Euler problem 13
 
 Large number sum
 """
