@@ -12,15 +12,21 @@ Project Euler problem 14
 Long Sequence
 """
 
+known_seqs = dict()
+
 def sequence_length(n):
-    s = [n]
+    n_orig = n
     s_l = 1
     while n > 1:
+        if n in known_seqs:
+            s_l += known_seqs[n] - 1
+            break
         if n % 2 == 0:
             n /= 2
         else:
             n = 3*n + 1
         s_l += 1
+    known_seqs[n_orig] = s_l
     return s_l
 
 
