@@ -12,5 +12,23 @@ Project Euler problem 12
 Triangle number factors
 """
 
+
+import math
+
+def divisors(n):
+    ds = []
+    for d in range(1,int(math.ceil(math.sqrt(n)))):
+        if n % d == 0:
+            ds.append(d)
+            ds.append(n / d)
+    return ds
+
 if __name__ == "__main__":
-    print "problem 12"
+    t = 0
+    n = 1
+    d = []
+    while len(d) < 500:
+        t += n
+        n += 1
+        d = divisors(t)
+    print t
