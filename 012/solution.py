@@ -14,13 +14,22 @@ Triangle number factors
 
 
 import math
+import numpy as np
+import collections
+
+def prime_factors(number):
+    max_divisor = int(math.sqrt(number))
+    for d in range(max_divisor, 1, -1):
+        if number % d == 0:
+            return prime_factors(d) + prime_factors(number / d)
+    return [number]
+
 
 def n_divisors(n):
-    ds = 0
-    for d in range(1,int(math.ceil(math.sqrt(n)))):
-        if n % d == 0:
-            ds += 2
-    return ds
+    pf = prime_factors(n)
+    counts = np.array(collections.Counter(pf).values())
+    return np.product(counts + 1)
+
 
 if __name__ == "__main__":
     t = 0
