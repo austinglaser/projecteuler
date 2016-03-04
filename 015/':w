@@ -51,8 +51,6 @@ def path_id(x, y):
 def path_len(x, y):
     pid = path_id(x, y)
     print pid
-    print known_path_lens
-    print
 
     if pid in known_path_lens:
         plen = known_path_lens[pid]
@@ -62,11 +60,10 @@ def path_len(x, y):
         elif y == 0:
             plen = x
         else:
-            plen = path_len(x-1, y) * path_len(y, x-1)
         known_path_lens[pid] = plen
     return plen
 
 
 
 if __name__ == "__main__":
-    print path_len(2, 2)
+    print path_len(20, 20)
