@@ -40,21 +40,21 @@ grid = np.array([
                 ])
 
 if __name__ == "__main__":
+    np.set_printoptions(linewidth=160)
     quartets = []
-    for r in range(grid.shape[1] - 3):
-        for q in grid[r:r+4,:].T:
+    for r in range(grid.shape[0] - 3):
+        s = grid[r:r+4,:]
+        for q in s.T:
             quartets.append(q)
-    for c in range(grid.shape[0] - 3):
-        for q in grid[:,c:c+4]:
+    for c in range(grid.shape[1] - 3):
+        s = grid[:,c:c+4]
+        for q in s:
             quartets.append(q)
-    for r in range(grid.shape[1] - 3):
-        for c in range(grid.shape[0] - 3):
-            q = []
-            for i in range(4):
-                q.append(grid[r + i, c + i])
-            quartets.append(np.array(q))
+    for offset in range(-19, 20):
+        diag = np.diagonal(grid, offset)
+        for i in range(len(diag) - 3):
+            quartets.append(diag[i:i+4])
     quartets = np.array(quartets)
     products = np.product(quartets, axis=1)
-    maxindex = np.argmax(products)
-
-    print quartets[maxindex,:], products[maxindex]
+    maxindex = products.argmax()
+    print quartets[maxindex], products[maxindex]
