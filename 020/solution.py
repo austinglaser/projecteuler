@@ -11,5 +11,16 @@ Project Euler problem 20
 """
 
 
+def factorial(num, stop=1):
+    if num < 0:
+        raise ValueError("factorial only defined for positive integers")
+    f = 1
+    for n in range(stop, num + 1):
+        f *= n
+    return f
+
+
 if __name__ == "__main__":
-    print 'problem 20'
+    f = factorial(100)
+    digits = [int(c) for c in str(f)]
+    print sum(digits)
