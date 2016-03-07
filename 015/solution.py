@@ -16,6 +16,20 @@ top-left to the bottom-right points of a grid. Only paths with movement
 downwards and right are allowed. The solution asked for in the problem is that
 of a 20x20 grid.
 
+The answer to this turns out to just be choose(40, 20), but along the way I
+stumbled across a fairly efficient implementation of this. Namely:
+
+choose(x, y) =  x                                           if y == 1
+                sum (i from y-1 to x-1) choose(i, x-1)      otherwise
+
+By checking first against a table of values already computed (not before
+algorithm start, but before in this round) we get an order of magnitude
+improvement over the stopped factorial implementation.
+
+I guess I'm just computing lines of pascal's triangle...
+
+IGNORE the below; it's just a record of my original (wrong) though process.
+
 This is effectively the same as asking: For any number (x, y), how many
 possible ways are there to reach (0, 0) by subtracting 1 from each member of
 the pair individually? For (1, 1) the answer is obviously 2 -- we have the
@@ -39,7 +53,6 @@ up with a recursive (or at least iterative) formula for them.
 
 Specifically, we try to define N(x, x) in terms of N(x-1, x-1). This is pretty straightforward
 
-
 Whelp, the below works, but I'm embarassed to say that it ends up just being
 2*n C n. That'll teach me to combinatorics.
 """
@@ -61,7 +74,7 @@ def pick(n, k):
     return factorial(n, stop=(n - k + 1))
 
 
-def choose(n, k):
+def choose_naive(n, k):
     return pick(n, k) / factorial(k)
 
 
@@ -70,27 +83,27 @@ known_cases = {}
 
 def test_recurse():
     known_cases = {}
-    items_in_boxes(20, 40)
+    choose_recurse(40, 20)
 
 
 def test_combin():
-    choose(40, 20)
+    choose_naive(40, 20)
 
 
-def items_in_boxes(x, y):
+def choose_recurse(n, k):
     combinations = None
 
-    if x > 0 and x <= y:
-        case_id = (x, y)
+    if k > 0 and k <= n:
+        case_id = (n, k)
         if case_id in known_cases:
             combinations = known_cases[case_id]
         else:
-            if x == 1:
-                combinations = y
+            if k == 1:
+                combinations = n
             else:
                 combinations = 0
-                for left in range(x-1,y):
-                    combinations += items_in_boxes(x - 1, left)
+                for left in range(k-1,n):
+                    combinations += choose_recurse(left, k-1)
             known_cases[case_id] = combinations
 
     return combinations
@@ -98,7 +111,7 @@ def items_in_boxes(x, y):
 
 
 if __name__ == "__main__":
-    solution = choose(40, 20)
+    solution = choose_recurse(40, 20)
     print solution
 
     recurse_timer = timeit.Timer(test_recurse)
