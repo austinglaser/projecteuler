@@ -38,35 +38,45 @@ This doesn't work at all. So let's limit to square grid sizes, and try to come
 up with a recursive (or at least iterative) formula for them.
 
 Specifically, we try to define N(x, x) in terms of N(x-1, x-1). This is pretty straightforward
+
+
+Whelp, the below works, but I'm embarassed to say that it ends up just being
+2*n C n. That'll teach me to combinatorics.
 """
 
-known_path_lens = {
-                    (1,1): 2,
-                    (0,1): 1
-                  }
+known_cases = {
+                (1,2): 2,
+                (0,1): 1
+              }
 
-def path_id(x, y):
-    return (x, y) if x < y else (y, x)
+def items_in_boxes(x, y):
+    combinations = None
 
-def path_len(x, y):
-    pid = path_id(x, y)
-    print pid
-    print known_path_lens
-    print
-
-    if pid in known_path_lens:
-        plen = known_path_lens[pid]
-    else:
-        if x == 0:
-            plen = y
-        elif y == 0:
-            plen = x
+    global n
+    global hit
+    if x > 0 and x <= y:
+        n += 1
+        case_id = (x, y)
+        if case_id in known_cases:
+            combinations = known_cases[case_id]
+            hit += 1
         else:
-            plen = path_len(x-1, y) * path_len(y, x-1)
-        known_path_lens[pid] = plen
-    return plen
+            if x == 1:
+                combinations = y
+            else:
+                combinations = 0
+                for left in range(x-1,y):
+                    combinations += items_in_boxes(x - 1, left)
+            known_cases[case_id] = combinations
+
+    return combinations
 
 
 
 if __name__ == "__main__":
-    print path_len(2, 2)
+    global hit
+    global n
+    hit = 0
+    n = 0
+    print items_in_boxes(20, 40)
+    print float(hit) / float(n)
