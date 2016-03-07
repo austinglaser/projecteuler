@@ -44,19 +44,46 @@ Whelp, the below works, but I'm embarassed to say that it ends up just being
 2*n C n. That'll teach me to combinatorics.
 """
 
-known_cases = { }
+
+import timeit
+
+
+def factorial(num, stop=1):
+    if num < 0:
+        raise ValueError("factorial only defined for positive integers")
+    f = 1
+    for n in range(stop, num + 1):
+        f *= n
+    return f
+
+
+def pick(n, k):
+    return factorial(n, stop=(n - k + 1))
+
+
+def choose(n, k):
+    return pick(n, k) / factorial(k)
+
+
+known_cases = {}
+
+
+def test_recurse():
+    known_cases = {}
+    items_in_boxes(20, 40)
+
+
+def test_combin():
+    choose(40, 20)
+
 
 def items_in_boxes(x, y):
     combinations = None
 
-    global n
-    global hit
     if x > 0 and x <= y:
-        n += 1
         case_id = (x, y)
         if case_id in known_cases:
             combinations = known_cases[case_id]
-            hit += 1
         else:
             if x == 1:
                 combinations = y
@@ -71,9 +98,11 @@ def items_in_boxes(x, y):
 
 
 if __name__ == "__main__":
-    global hit
-    global n
-    hit = 0
-    n = 0
-    print items_in_boxes(20, 40)
-    print float(hit) / float(n)
+    solution = choose(40, 20)
+    print solution
+
+    recurse_timer = timeit.Timer(test_recurse)
+    combin_timer  = timeit.Timer(test_combin)
+
+    print "recursive:", recurse_timer.timeit(number=1000000)
+    print "combinatorial:", combin_timer.timeit(number=1000000)
