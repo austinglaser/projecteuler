@@ -44,10 +44,7 @@ Whelp, the below works, but I'm embarassed to say that it ends up just being
 2*n C n. That'll teach me to combinatorics.
 """
 
-known_cases = {
-                (1,2): 2,
-                (0,1): 1
-              }
+known_cases = { }
 
 def items_in_boxes(x, y):
     combinations = None
