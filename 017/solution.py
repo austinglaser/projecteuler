@@ -30,6 +30,8 @@ if __name__ == "__main__":
         elif n < 1000:
             if n % 100 == 0:
                 numstr = hundreds
+            elif n % 100 < 10:
+                numstr = hundreds + 'And' + ones
             else:
                 numstr = hundreds + 'And' + tens
         else:
