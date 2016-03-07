@@ -77,20 +77,18 @@ def pick(n, k):
 def choose_naive(n, k):
     return pick(n, k) / factorial(k)
 
+def choose_recurse_mul(n, k):
+    if k == 0:
+        c = 1
+    else:
+        c = (n * choose_recurse_mul(n - 1, k - 1)) / k
+    return c
+
 
 known_cases = {}
 
 
-def test_recurse():
-    known_cases = {}
-    choose_recurse(40, 20)
-
-
-def test_combin():
-    choose_naive(40, 20)
-
-
-def choose_recurse(n, k):
+def choose_recurse_add(n, k):
     combinations = None
 
     if k > 0 and k <= n:
@@ -103,19 +101,34 @@ def choose_recurse(n, k):
             else:
                 combinations = 0
                 for left in range(k-1,n):
-                    combinations += choose_recurse(left, k-1)
+                    combinations += choose_recurse_add(left, k-1)
             known_cases[case_id] = combinations
 
     return combinations
 
 
+def test_recurse_add():
+    global known_cases
+    known_cases = {}
+    choose_recurse_add(40, 20)
+
+
+def test_naive():
+    choose_naive(40, 20)
+
+
+def test_recurse_mul():
+    choose_recurse_mul(40, 20)
+
 
 if __name__ == "__main__":
-    solution = choose_recurse(40, 20)
+    solution = choose_recurse_add(40, 20)
     print solution
 
-    recurse_timer = timeit.Timer(test_recurse)
-    combin_timer  = timeit.Timer(test_combin)
+    naive_timer         = timeit.Timer(test_naive)
+    recurse_mul_timer   = timeit.Timer(test_recurse_mul)
+    recurse_add_timer   = timeit.Timer(test_recurse_add)
 
-    print "recursive:", recurse_timer.timeit(number=1000000)
-    print "combinatorial:", combin_timer.timeit(number=1000000)
+    print "naive:",                     naive_timer.timeit(number=1000000)
+    print "recursive multiplication:",  recurse_mul_timer.timeit(number=1000000)
+    print "recursive addition:",        recurse_add_timer.timeit(number=1000000)
