@@ -8,4 +8,7 @@ Project Euler problem 22
 
 
 if __name__ == "__main__":
-    print 'problem 22'
+    with open('names.txt', 'r') as namefile:
+        namestr = namefile.readlines()[0]
+        names = [name.strip('"') for name in namestr.split(',')]
+    print names
