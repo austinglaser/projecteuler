@@ -35,7 +35,7 @@ if __name__ == "__main__":
     abundant_number_sums = np.array([False]*(28123*2 -1), dtype=bool)
     for i, a in enumerate(abundant_numbers):
         abundant_number_sums[abundant_numbers[i:] + a] = True
-    results = np.arange(1, 28124)
+    results = np.arange(28124)
     result_idx = np.logical_not(abundant_number_sums)[:len(results)]
-    print np.sum(results[result_idx])
+    print sum(results[result_idx])
 
