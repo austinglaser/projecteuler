@@ -10,16 +10,16 @@
 Combinatorial solution
 """
 
-def factorial(num):
+def factorial(num, stop=1):
     if num < 0:
         raise ValueError("factorial only defined for positive integers")
     f = 1
-    for n in range(1, num + 1):
+    for n in range(stop, num + 1):
         f *= n
     return f
 
 def npickk(n, k):
-    return factorial(n) / factorial(n - k)
+    return factorial(n, stop=(n - k + 1))
 
 def nchoosek(n, k):
     return npickk(n, k) / factorial(k)
