@@ -32,10 +32,10 @@ if __name__ == "__main__":
             abundant_numbers.append(n)
     abundant_numbers = np.array(abundant_numbers)
 
-    results = []
-    for n in range(1, 28124):
-        possible_numbers = abundant_numbers[abundant_numbers < n]
-        possible_pairs = n - possible_numbers
-        if not any(np.in1d(possible_pairs, possible_numbers)):
-            results.append(n)
-    print sum(results)
+    abundant_number_sums = np.array([False]*(28123*2 -1), dtype=bool)
+    for i, a in enumerate(abundant_numbers):
+        abundant_number_sums[abundant_numbers[i:] + a] = True
+    results = np.arange(1, 28124)
+    result_idx = np.logical_not(abundant_number_sums)[:len(results)]
+    print np.sum(results[result_idx])
+
