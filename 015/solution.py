@@ -85,10 +85,7 @@ def choose_recurse_mul(n, k):
     return c
 
 
-known_cases = {}
-
-
-def choose_recurse_add(n, k):
+def choose_recurse_add(n, k, known_cases = {}):
     combinations = None
 
     if k > 0 and k <= n:
@@ -101,16 +98,14 @@ def choose_recurse_add(n, k):
             else:
                 combinations = 0
                 for left in range(k-1,n):
-                    combinations += choose_recurse_add(left, k-1)
+                    combinations += choose_recurse_add(left, k-1, known_cases)
             known_cases[case_id] = combinations
 
     return combinations
 
 
 def test_recurse_add():
-    global known_cases
-    known_cases = {}
-    choose_recurse_add(40, 20)
+    choose_recurse_add(40, 20, known_cases={})
 
 
 def test_naive():
