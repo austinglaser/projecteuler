@@ -7,7 +7,7 @@
 # Distributed under terms of the MIT license.
 
 """
-Project Euler problem 24
+Project Euler problem 25
 """
 
 import math
