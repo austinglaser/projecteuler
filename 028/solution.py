@@ -21,14 +21,8 @@ Project Euler problem 28
 import math
 import numpy as np
 
-def elem(ring, diag):
-    return (2*ring + 1)**2 - 2*ring*(4 - diag)
-
 def corners(ring):
-    s = 0
-    for i in [1,2,3,4]:
-        s += elem(ring, i)
-    return s
+    return 16*(ring**2) + 4*ring + 4
 
 def spiral(size):
     s = 1
