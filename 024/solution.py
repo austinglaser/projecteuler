@@ -10,31 +10,20 @@
 Project Euler problem 24
 """
 
-import numpy as np
-
+import math
 
 if __name__ == "__main__":
-    elems = sorted(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
+    elems = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    perm = []
+    perm_n = 999999
 
-    for i in range(1000000):
-        k = None
-        for i in range(len(elems) - 2, -1, -1):
-            if elems[i] < elems[i + 1]:
-                k = i
-                break
-        if k is None:
-            break
+    while len(elems) > 0:
+        subseq_n = math.factorial(len(elems) - 1)
 
-        l = None
-        for i in range(len(elems) - 1, k, -1):
-            if elems[k] < elems[i]:
-                l = i
-                break
+        subseq = perm_n / subseq_n
+        perm_n = perm_n % subseq_n
 
-        tmp = elems[k]
-        elems[k] = elems[l]
-        elems[l] = tmp
+        perm.append(elems[subseq])
+        del elems[subseq]
 
-        elems[k+1:] = reversed(elems[k+1:])
-
-    print ''.join(elems)
+    print ''.join(perm)
