@@ -22,7 +22,7 @@
 
 /* --- PRIVATE CONSTANTS --------------------------------------------------- */
 
-#define N UINT64_C(100)
+#define N UINT64_C(10000000)
 
 _Static_assert(N >= 89, "N must be at leat 89 initially");
 
@@ -81,6 +81,8 @@ int main(void)
     eighty_nine->next = node_array_get(&na, sum_squared_digits(89));
     one->next = one;
 
+    uint64_t count = 0;
+
     for (uint32_t n = 1; n <= N; n++) {
         node base = node_array_get(&na, n);
         node curr = base;
@@ -98,6 +100,10 @@ int main(void)
         }
         node end = curr;
 
+        if (end->ends_in_cycle) {
+            count += 1;
+        }
+
         /* Mark backwards */
         curr = end->prev;
         while (curr != NULL) {
@@ -108,6 +114,8 @@ int main(void)
         }
 
     }
+
+    fprintf(stderr, "%"PRIu64"\n", count);
 
     printf("strict digraph {\n");
 
