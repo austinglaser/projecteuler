@@ -11,7 +11,6 @@ class DecimalPalindromes(object):
     def __init__(self):
         self.cache = {}
 
-
     def ofLen(self, n):
         assert(n >= 0)
 
@@ -22,14 +21,14 @@ class DecimalPalindromes(object):
                 yield pal
         else:
             self.cache[n] = []
-            for digit in range(1, 10):
+            for digit in range(10):
                 if (n == 1):
-                    pal = digit
+                    pal = str(digit)
                     self.cache[n].append(pal)
                     yield pal
                 else:
                     for subPal in self.ofLen(n - 2):
-                        pal = int(str(digit) + str(subPal) + str(digit))
+                        pal = str(digit) + subPal + str(digit)
                         self.cache[n].append(pal)
                         yield pal
 
@@ -47,8 +46,10 @@ def isBinaryPalindrome(number):
 if __name__ == "__main__":
     pals = DecimalPalindromes()
     count = 0
-    for decPal in pals.ofLenUpto(6):
+    for decPalStr in pals.ofLenUpto(7):
+        decPal = int(decPalStr)
         if isBinaryPalindrome(decPal):
+            print decPal, bin(decPal)
             count += decPal
     print count
 
